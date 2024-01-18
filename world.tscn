@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://cubpkqyjfqiv0"]
+
+[ext_resource type="Texture2D" uid="uid://bskdi0dy45llp" path="res://assets/SpaceBackground.png" id="1_u71so"]
+[ext_resource type="Texture2D" uid="uid://co33gwgq4qap" path="res://assets/player_ship.png" id="2_h0tec"]
+[ext_resource type="Texture2D" uid="uid://b64e2b780c50w" path="res://assets/enemy_small_1.png" id="3_e4cyy"]
+[ext_resource type="Texture2D" uid="uid://buvvokswwlx3f" path="res://assets/enemy_small_2.png" id="4_gy0su"]
+[ext_resource type="Texture2D" uid="uid://dkq4mdgpabodq" path="res://assets/enemy_big_1.png" id="5_107wo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65cpb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucl0o"]
+bg_color = Color(0.929412, 0, 0, 1)
+
+[node name="World" type="Node2D"]
+
+[node name="SpaceBackground" type="Sprite2D" parent="."]
+position = Vector2(952, 536)
+scale = Vector2(2.10156, 2.10156)
+texture = ExtResource("1_u71so")
+
+[node name="EnemySmall1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1272, 224)
+rotation = -1.5708
+scale = Vector2(4.64712, 4.64712)
+texture = ExtResource("3_e4cyy")
+
+[node name="EnemySmall2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1392, 808)
+rotation = -1.5708
+scale = Vector2(2.67043, 2.67043)
+texture = ExtResource("4_gy0su")
+
+[node name="EnemyBig1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1544, 528)
+rotation = -1.5708
+scale = Vector2(4.17383, 4.17383)
+texture = ExtResource("5_107wo")
+
+[node name="PlayerShip" type="Node2D" parent="."]
+
+[node name="Skin" type="Sprite2D" parent="PlayerShip"]
+texture_filter = 1
+position = Vector2(336, 536)
+rotation = 1.5708
+scale = Vector2(3.60938, 3.60938)
+texture = ExtResource("2_h0tec")
+
+[node name="ProgressBar" type="ProgressBar" parent="PlayerShip"]
+offset_left = 200.0
+offset_top = 320.0
+offset_right = 536.0
+offset_bottom = 352.0
+theme_override_styles/background = SubResource("StyleBoxFlat_65cpb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ucl0o")
+value = 50.0
+show_percentage = false
