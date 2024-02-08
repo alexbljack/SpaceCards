@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://kg5jrl3rpeoq"]
+
+[ext_resource type="Script" path="res://scripts/Action.gd" id="1_4cmrf"]
+
+[resource]
+script = ExtResource("1_4cmrf")
+title = ""
+on_apply = ""

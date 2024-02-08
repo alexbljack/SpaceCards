@@ -23,8 +23,15 @@ func _ready() -> void:
 	action_timer.timeout.connect(on_action_timer);
 
 
+func _process(delta):
+	atk_btn.disabled = ap < player.attack_dice.ap_cost;
+
+
 func start_player_turn():
-	ap += change_ap(max_ap);
+	end_turn_btn.visible = true;
+	atk_btn.disabled = true;
+	def_btn.disabled = true;
+	change_ap(max_ap);
 	end_turn_btn.visible = true;
 
 
