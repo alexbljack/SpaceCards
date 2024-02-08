@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://ucc8jdlht5d0"]
+
+[ext_resource type="Script" path="res://scripts/BattleController.gd" id="1_05e5e"]
+[ext_resource type="Texture2D" uid="uid://elxg630mwthm" path="res://assets/castle bridge.png" id="1_dmlci"]
+[ext_resource type="Texture2D" uid="uid://bglg86pakc02g" path="res://assets/admech_idle.png" id="2_u3xuk"]
+[ext_resource type="Texture2D" uid="uid://qsrx2nar5rc" path="res://assets/death.png" id="3_ndipc"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="4_ptisv"]
+[ext_resource type="PackedScene" uid="uid://daddhboyr6sur" path="res://atk_dice.tscn" id="5_lvui7"]
+[ext_resource type="Script" path="res://Enemy.gd" id="11_irlta"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f32or"]
+bg_color = Color(0.521569, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4klg"]
+bg_color = Color(0.305882, 0, 0.454902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekvob"]
+bg_color = Color(0.905882, 0.462745, 0.0784314, 1)
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_05e5e")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(960, 560)
+scale = Vector2(0.521296, 0.521296)
+texture = ExtResource("1_dmlci")
+metadata/_edit_lock_ = true
+
+[node name="Player" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(400, 608)
+scale = Vector2(8, 8)
+texture = ExtResource("2_u3xuk")
+hframes = 2
+script = ExtResource("4_ptisv")
+
+[node name="ATKDice" parent="Player" instance=ExtResource("5_lvui7")]
+
+[node name="Enemy" type="Sprite2D" parent="." node_paths=PackedStringArray("dices")]
+texture_filter = 1
+position = Vector2(1432, 536)
+scale = Vector2(15, 15)
+texture = ExtResource("3_ndipc")
+hframes = 6
+script = ExtResource("11_irlta")
+dices = [NodePath("ATKDice")]
+
+[node name="ATKDice" parent="Enemy" instance=ExtResource("5_lvui7")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ATKButton" type="Button" parent="CanvasLayer"]
+offset_left = 72.0
+offset_top = 824.0
+offset_right = 206.0
+offset_bottom = 925.0
+theme_override_font_sizes/font_size = 68
+theme_override_styles/normal = SubResource("StyleBoxFlat_f32or")
+text = "ATK"
+
+[node name="DEFButton" type="Button" parent="CanvasLayer"]
+offset_left = 240.0
+offset_top = 824.0
+offset_right = 374.0
+offset_bottom = 925.0
+theme_override_font_sizes/font_size = 68
+theme_override_styles/normal = SubResource("StyleBoxFlat_c4klg")
+text = "DEF"
+
+[node name="APLabel" type="Label" parent="CanvasLayer"]
+offset_left = 72.0
+offset_top = 704.0
+offset_right = 178.0
+offset_bottom = 773.0
+theme_override_font_sizes/font_size = 50
+text = "AP 3"
+
+[node name="ActionTextLabel" type="Label" parent="CanvasLayer"]
+offset_top = 824.0
+offset_right = 1920.0
+offset_bottom = 934.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 80
+text = "Critical Miss!!!"
+horizontal_alignment = 1
+
+[node name="EndTurnButton" type="Button" parent="CanvasLayer"]
+offset_left = 1608.0
+offset_top = 824.0
+offset_right = 1910.0
+offset_bottom = 925.0
+theme_override_font_sizes/font_size = 68
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekvob")
+text = "End Turn"
+
+[node name="ActionTimer" type="Timer" parent="."]
+one_shot = true

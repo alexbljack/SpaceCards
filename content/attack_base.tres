@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://c8jxdv1tw2wjw"]
+
+[ext_resource type="Script" path="res://scripts/Action.gd" id="1_hgt1f"]
+
+[resource]
+script = ExtResource("1_hgt1f")
+title = "Sword"
+on_apply = "1 damage"
