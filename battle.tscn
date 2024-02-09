@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ucc8jdlht5d0"]
+[gd_scene load_steps=15 format=3 uid="uid://ucc8jdlht5d0"]
 
 [ext_resource type="Script" path="res://scripts/BattleController.gd" id="1_05e5e"]
 [ext_resource type="Texture2D" uid="uid://elxg630mwthm" path="res://assets/castle bridge.png" id="1_dmlci"]
@@ -7,8 +7,10 @@
 [ext_resource type="Script" path="res://scripts/Player.gd" id="4_ptisv"]
 [ext_resource type="Resource" uid="uid://coyfvpj7dsy4n" path="res://content/dices/attack_dice.tres" id="5_m4bly"]
 [ext_resource type="Resource" uid="uid://7fogdhjxt4u3" path="res://content/dices/defence_dice.tres" id="6_dyctx"]
+[ext_resource type="PackedScene" uid="uid://bk7honyi0tql6" path="res://hp_bar.tscn" id="7_7o45j"]
 [ext_resource type="Resource" uid="uid://0v8l0cjegev8" path="res://content/dices/enemy_dice.tres" id="9_wq25n"]
 [ext_resource type="Script" path="res://Enemy.gd" id="11_irlta"]
+[ext_resource type="Texture2D" uid="uid://deva7qdfap8nc" path="res://assets/3.png" id="11_jiily"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f32or"]
 bg_color = Color(0.521569, 0, 0, 1)
@@ -37,6 +39,11 @@ hframes = 2
 script = ExtResource("4_ptisv")
 attack_dice = ExtResource("5_m4bly")
 defense_dice = ExtResource("6_dyctx")
+max_hp = 13
+hp = 13
+
+[node name="HPBar" parent="Player" instance=ExtResource("7_7o45j")]
+max_value = 100.0
 
 [node name="Enemy" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -46,6 +53,15 @@ texture = ExtResource("3_ndipc")
 hframes = 6
 script = ExtResource("11_irlta")
 action_dice = ExtResource("9_wq25n")
+max_hp = 15
+hp = 15
+
+[node name="HPBar" parent="Enemy" instance=ExtResource("7_7o45j")]
+offset_left = -10.1333
+offset_top = -28.2667
+offset_right = 22.8667
+offset_bottom = -24.2667
+max_value = 100.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -85,13 +101,26 @@ text = "Critical Miss!!!"
 horizontal_alignment = 1
 
 [node name="EndTurnButton" type="Button" parent="CanvasLayer"]
-offset_left = 1608.0
+offset_left = 1576.0
 offset_top = 824.0
-offset_right = 1910.0
+offset_right = 1878.0
 offset_bottom = 925.0
 theme_override_font_sizes/font_size = 68
 theme_override_styles/normal = SubResource("StyleBoxFlat_ekvob")
 text = "End Turn"
+
+[node name="DefenseLabel" type="Label" parent="CanvasLayer"]
+offset_left = 560.0
+offset_top = 440.0
+offset_right = 600.0
+offset_bottom = 479.0
+theme_override_font_sizes/font_size = 28
+text = "1"
+
+[node name="Defense" type="Sprite2D" parent="CanvasLayer/DefenseLabel"]
+position = Vector2(-35, 21)
+scale = Vector2(0.3375, 0.3375)
+texture = ExtResource("11_jiily")
 
 [node name="ActionTimer" type="Timer" parent="."]
 one_shot = true

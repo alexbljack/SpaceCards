@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_hgt1f")
 title = "Sword"
-on_apply = "1 damage"
+on_apply = "Sword made 1 damage"
+type = 0
+target = 1
+amount = 1

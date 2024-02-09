@@ -6,3 +6,6 @@
 script = ExtResource("1_4cmrf")
 title = "Double Shield"
 on_apply = "You got 2 shield"
+type = 1
+target = 0
+amount = 2

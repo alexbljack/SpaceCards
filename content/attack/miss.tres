@@ -6,3 +6,6 @@
 script = ExtResource("1_mi0is")
 title = "Missed"
 on_apply = "Missed!"
+type = 2
+target = 0
+amount = 1

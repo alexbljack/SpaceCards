@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk7honyi0tql6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2sct"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5g16c"]
+bg_color = Color(0.937255, 0, 0, 1)
+
+[node name="HPBar" type="ProgressBar"]
+offset_left = -12.0
+offset_top = -21.0
+offset_right = 10.0
+offset_bottom = -17.0
+theme_override_styles/background = SubResource("StyleBoxFlat_c2sct")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5g16c")
+max_value = 10.0
+step = 1.0
+value = 5.0
+show_percentage = false

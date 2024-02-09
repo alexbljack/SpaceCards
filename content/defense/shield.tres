@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_gcicm")
 title = "Shield"
-on_apply = "You got 2 shield"
+on_apply = "You got 1 shield"
+type = 1
+target = 0
+amount = 1

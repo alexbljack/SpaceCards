@@ -1,4 +1,4 @@
-class_name Enemy extends Sprite2D
+class_name Enemy extends Entity
 
 @export var action_dice: Dice
 

@@ -5,6 +5,7 @@ class_name BattleController extends Node2D
 @onready var ap_counter := $"CanvasLayer/APLabel"
 @onready var action_text := $"CanvasLayer/ActionTextLabel"
 @onready var end_turn_btn := $"CanvasLayer/EndTurnButton"
+@onready var defense_label := $"CanvasLayer/DefenseLabel"
 
 @onready var action_timer := $"ActionTimer"
 
@@ -26,17 +27,20 @@ func _ready() -> void:
 	def_btn.button_down.connect(func(): roll_dice(player.defense_dice));
 	end_turn_btn.button_down.connect(start_enemy_turn);
 	action_timer.timeout.connect(on_action_timer);
+	player.defence_changed.connect(on_defence_change);
 	start_player_turn();
 
 
 func _process(delta):
 	atk_btn.disabled = ap < player.attack_dice.ap_cost || acting;
 	def_btn.disabled = ap < player.defense_dice.ap_cost || acting;
+	defense_label.visible = player.defence > 0;
 
 
 func start_player_turn():
 	turn = Turn.PLAYER;
 	show_ui();
+	player.reset_defence();
 	change_ap(max_ap);
 
 
@@ -53,9 +57,10 @@ func roll_dice(dice: Dice):
 	start_action(face);
 
 
-func start_action(action):
+func start_action(action: Action):
 	acting = true;
-	set_action_text(action.on_apply)
+	set_action_text(action.on_apply);
+	action.act(player, enemy);
 	action_timer.start();
 
 
@@ -64,6 +69,10 @@ func on_action_timer():
 	clear_action_text();
 	if turn == Turn.ENEMY:
 		start_player_turn();
+
+
+func on_defence_change(value):
+	defense_label.text = "{v}".format({"v": player.defence});
 
 
 func change_ap(amount):

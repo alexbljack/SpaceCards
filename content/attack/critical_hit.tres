@@ -6,3 +6,6 @@
 script = ExtResource("1_50on3")
 title = "Critical hit"
 on_apply = "2 critical damage!"
+type = 0
+target = 1
+amount = 2
