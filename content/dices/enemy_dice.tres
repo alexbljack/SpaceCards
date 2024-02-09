@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Dice" load_steps=5 format=3 uid="uid://0v8l0cjegev8"]
+
+[ext_resource type="Resource" uid="uid://bbls2aeeibkb" path="res://content/enemy/death_blow.tres" id="1_uxn5e"]
+[ext_resource type="Script" path="res://scripts/Dice.gd" id="1_x8qjp"]
+[ext_resource type="Resource" uid="uid://butkf2onxvgl8" path="res://content/enemy/scythe.tres" id="2_avcbf"]
+[ext_resource type="Resource" uid="uid://c5orppgfkblob" path="res://content/attack/miss.tres" id="3_ehcjc"]
+
+[resource]
+script = ExtResource("1_x8qjp")
+ap_cost = 1
+faces = Array[Resource("res://scripts/Action.gd")]([ExtResource("1_uxn5e"), ExtResource("2_avcbf"), ExtResource("2_avcbf"), ExtResource("2_avcbf"), ExtResource("3_ehcjc"), ExtResource("3_ehcjc")])

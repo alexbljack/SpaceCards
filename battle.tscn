@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://ucc8jdlht5d0"]
+[gd_scene load_steps=13 format=3 uid="uid://ucc8jdlht5d0"]
 
 [ext_resource type="Script" path="res://scripts/BattleController.gd" id="1_05e5e"]
 [ext_resource type="Texture2D" uid="uid://elxg630mwthm" path="res://assets/castle bridge.png" id="1_dmlci"]
 [ext_resource type="Texture2D" uid="uid://bglg86pakc02g" path="res://assets/admech_idle.png" id="2_u3xuk"]
 [ext_resource type="Texture2D" uid="uid://qsrx2nar5rc" path="res://assets/death.png" id="3_ndipc"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="4_ptisv"]
-[ext_resource type="PackedScene" uid="uid://daddhboyr6sur" path="res://atk_dice.tscn" id="5_lvui7"]
+[ext_resource type="Resource" uid="uid://coyfvpj7dsy4n" path="res://content/dices/attack_dice.tres" id="5_m4bly"]
+[ext_resource type="Resource" uid="uid://7fogdhjxt4u3" path="res://content/dices/defence_dice.tres" id="6_dyctx"]
+[ext_resource type="Resource" uid="uid://0v8l0cjegev8" path="res://content/dices/enemy_dice.tres" id="9_wq25n"]
 [ext_resource type="Script" path="res://Enemy.gd" id="11_irlta"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f32or"]
@@ -33,19 +35,17 @@ scale = Vector2(8, 8)
 texture = ExtResource("2_u3xuk")
 hframes = 2
 script = ExtResource("4_ptisv")
+attack_dice = ExtResource("5_m4bly")
+defense_dice = ExtResource("6_dyctx")
 
-[node name="ATKDice" parent="Player" instance=ExtResource("5_lvui7")]
-
-[node name="Enemy" type="Sprite2D" parent="." node_paths=PackedStringArray("dices")]
+[node name="Enemy" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(1432, 536)
 scale = Vector2(15, 15)
 texture = ExtResource("3_ndipc")
 hframes = 6
 script = ExtResource("11_irlta")
-dices = [NodePath("ATKDice")]
-
-[node name="ATKDice" parent="Enemy" instance=ExtResource("5_lvui7")]
+action_dice = ExtResource("9_wq25n")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

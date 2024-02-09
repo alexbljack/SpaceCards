@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Dice" load_steps=6 format=3 uid="uid://7fogdhjxt4u3"]
+
+[ext_resource type="Resource" uid="uid://d0vkwmqvig753" path="res://content/defense/shield.tres" id="1_67oo6"]
+[ext_resource type="Script" path="res://scripts/Dice.gd" id="1_p8m6h"]
+[ext_resource type="Resource" uid="uid://kg5jrl3rpeoq" path="res://content/defense/double_shield.tres" id="2_mh6hx"]
+[ext_resource type="Resource" uid="uid://bwvvllskelo48" path="res://content/defense/failed_defense.tres" id="3_onl5q"]
+[ext_resource type="Resource" uid="uid://fbpbv0qbo88t" path="res://content/defense/lock_shield.tres" id="4_77bdr"]
+
+[resource]
+script = ExtResource("1_p8m6h")
+ap_cost = 1
+faces = Array[Resource("res://scripts/Action.gd")]([ExtResource("1_67oo6"), ExtResource("1_67oo6"), ExtResource("2_mh6hx"), ExtResource("3_onl5q"), ExtResource("3_onl5q"), ExtResource("4_77bdr")])

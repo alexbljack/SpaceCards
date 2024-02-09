@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://daddhboyr6sur"]
 
 [ext_resource type="Script" path="res://scripts/Dice.gd" id="1_sciof"]
-[ext_resource type="Resource" uid="uid://c8jxdv1tw2wjw" path="res://content/attack_base.tres" id="2_333io"]
-[ext_resource type="Resource" uid="uid://pj3qcn3j1se5" path="res://content/critical_hit.tres" id="3_6lsbg"]
-[ext_resource type="Resource" uid="uid://c5orppgfkblob" path="res://content/miss.tres" id="4_om2r5"]
-[ext_resource type="Resource" uid="uid://dg7axltaw0xat" path="res://content/critical_failure.tres" id="5_0hwy6"]
+[ext_resource type="Resource" uid="uid://c8jxdv1tw2wjw" path="res://content/attack/attack_base.tres" id="2_333io"]
+[ext_resource type="Resource" uid="uid://pj3qcn3j1se5" path="res://content/attack/critical_hit.tres" id="3_6lsbg"]
+[ext_resource type="Resource" uid="uid://c5orppgfkblob" path="res://content/attack/miss.tres" id="4_om2r5"]
+[ext_resource type="Resource" uid="uid://dg7axltaw0xat" path="res://content/attack/critical_failure.tres" id="5_0hwy6"]
 
 [node name="ATKDice" type="Node"]
 script = ExtResource("1_sciof")

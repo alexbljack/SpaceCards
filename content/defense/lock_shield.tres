@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_qg7ec")
-title = ""
-on_apply = ""
+title = "Critical defense fail"
+on_apply = "You cannot defense 1 turn!"

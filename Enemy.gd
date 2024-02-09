@@ -1,7 +1,7 @@
 class_name Enemy extends Sprite2D
 
-@export var dices: Array[Dice]
+@export var action_dice: Dice
 
 
 func choose_dice():
-	return dices.pick_random();
+	return action_dice;

@@ -1,4 +1,4 @@
-extends Node2D
+class_name BattleController extends Node2D
 
 @onready var atk_btn := $"CanvasLayer/ATKButton"
 @onready var def_btn := $"CanvasLayer/DEFButton"
@@ -14,53 +14,74 @@ extends Node2D
 @export var ap := 3
 @export var max_ap := 3
 
+enum Turn {PLAYER, ENEMY}
+
+var turn: Turn;
+
+var acting = false;
 
 func _ready() -> void:
 	clear_action_text();
 	atk_btn.button_down.connect(func(): roll_dice(player.attack_dice));
-	def_btn.button_down.connect(func(): pass);
+	def_btn.button_down.connect(func(): roll_dice(player.defense_dice));
 	end_turn_btn.button_down.connect(start_enemy_turn);
 	action_timer.timeout.connect(on_action_timer);
+	start_player_turn();
 
 
 func _process(delta):
-	atk_btn.disabled = ap < player.attack_dice.ap_cost;
+	atk_btn.disabled = ap < player.attack_dice.ap_cost || acting;
+	def_btn.disabled = ap < player.defense_dice.ap_cost || acting;
 
 
 func start_player_turn():
-	end_turn_btn.visible = true;
-	atk_btn.disabled = true;
-	def_btn.disabled = true;
+	turn = Turn.PLAYER;
+	show_ui();
 	change_ap(max_ap);
-	end_turn_btn.visible = true;
 
 
 func start_enemy_turn():
-	end_turn_btn.visible = false;
-	atk_btn.disabled = true;
-	def_btn.disabled = true;
+	turn = Turn.ENEMY;
+	hide_ui();
 	roll_dice(enemy.choose_dice());
 
 
 func roll_dice(dice: Dice):
-	var face = dice.roll()
-	set_action_text(face.on_apply)
-	atk_btn.disabled = true;
-	def_btn.disabled = true;
-	change_ap(-dice.ap_cost)
+	var face = dice.roll();
+	if turn == Turn.PLAYER:
+		change_ap(-dice.ap_cost);
+	start_action(face);
+
+
+func start_action(action):
+	acting = true;
+	set_action_text(action.on_apply)
+	action_timer.start();
 
 
 func on_action_timer():
-	atk_btn.disabled = false;
-	def_btn.disabled = false;
+	acting = false;
 	clear_action_text();
+	if turn == Turn.ENEMY:
+		start_player_turn();
 
 
 func change_ap(amount):
 	ap += amount
 	ap = clampi(ap, 0, max_ap)
-	action_timer.start();
 	update_ap_ui();
+
+
+func show_ui():
+	end_turn_btn.visible = true;
+	atk_btn.visible = true;
+	def_btn.visible = true;
+
+
+func hide_ui():
+	end_turn_btn.visible = false;
+	atk_btn.visible = false;
+	def_btn.visible = false;
 
 
 func update_ap_ui():

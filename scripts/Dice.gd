@@ -1,4 +1,4 @@
-class_name Dice extends Node
+class_name Dice extends Resource
 
 @export var ap_cost := 1
 @export var faces: Array[Action]
