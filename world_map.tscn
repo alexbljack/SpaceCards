@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5p15y2cc48xl"]
+
+[ext_resource type="Texture2D" uid="uid://dsgv6h3hwewr2" path="res://assets/rts/Farm.png" id="1_hccjo"]
+[ext_resource type="Texture2D" uid="uid://caeyni2uem1r6" path="res://assets/rts/Icon_Army.png" id="2_clsrv"]
+[ext_resource type="Texture2D" uid="uid://b54n2qtpuxprs" path="res://assets/rts/Icon_Good_Citizen.png" id="3_ix2dx"]
+[ext_resource type="Script" path="res://Unit.gd" id="4_ju6dk"]
+
+[node name="World" type="Node2D"]
+position = Vector2(1376, 528)
+
+[node name="Farm" type="Sprite2D" parent="."]
+position = Vector2(56, -24)
+texture = ExtResource("1_hccjo")
+
+[node name="Knight" type="Sprite2D" parent="."]
+position = Vector2(-1024, 128)
+scale = Vector2(0.406615, 0.406615)
+texture = ExtResource("2_clsrv")
+
+[node name="Worker" type="Sprite2D" parent="."]
+position = Vector2(-544, 136)
+scale = Vector2(0.406615, 0.406615)
+texture = ExtResource("3_ix2dx")
+script = ExtResource("4_ju6dk")
+move_speed = 100
