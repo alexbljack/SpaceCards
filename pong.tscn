@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb3ycqt1dvixj"]
+[gd_scene load_steps=10 format=3 uid="uid://djvpoipdv6vki"]
 
 [ext_resource type="Texture2D" uid="uid://bskdi0dy45llp" path="res://assets/SpaceBackground.png" id="1_m8abi"]
 [ext_resource type="Texture2D" uid="uid://coh2yltnvq12m" path="res://assets/pong/paddle.png" id="2_oobt7"]
@@ -12,6 +12,10 @@ size = Vector2(48, 272)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h70yo"]
 size = Vector2(2792, 16)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5kiqw"]
+friction = 0.0
+bounce = 1.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_gm3iq"]
 radius = 16.0
 
@@ -22,10 +26,15 @@ position = Vector2(952, 864)
 scale = Vector2(2.10938, 2.10938)
 texture = ExtResource("1_m8abi")
 
-[node name="Paddle" type="CharacterBody2D" parent="."]
+[node name="Paddle" type="RigidBody2D" parent="."]
 position = Vector2(136, 416)
+mass = 1000.0
+gravity_scale = 1.66533e-16
+lock_rotation = true
+freeze = true
+linear_damp_mode = 1
 script = ExtResource("2_u33v0")
-speed = 500
+speed = 650
 
 [node name="Sprite2D" type="Sprite2D" parent="Paddle"]
 scale = Vector2(1.375, 2.0625)
@@ -35,7 +44,7 @@ texture = ExtResource("2_oobt7")
 shape = SubResource("RectangleShape2D_ac8ax")
 
 [node name="Boundary" type="StaticBody2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(48, 72)
 
 [node name="Sprite2D" type="Sprite2D" parent="Boundary"]
 texture_filter = 1
@@ -48,7 +57,7 @@ position = Vector2(908, -8)
 shape = SubResource("RectangleShape2D_h70yo")
 
 [node name="Boundary2" type="StaticBody2D" parent="."]
-position = Vector2(0, 1104)
+position = Vector2(0, 1032)
 
 [node name="Sprite2D" type="Sprite2D" parent="Boundary2"]
 texture_filter = 1
@@ -74,11 +83,27 @@ texture = ExtResource("2_oobt7")
 position = Vector2(908, -8)
 shape = SubResource("RectangleShape2D_h70yo")
 
+[node name="Boundary4" type="StaticBody2D" parent="."]
+position = Vector2(-24, 120)
+rotation = 1.5708
+
+[node name="Sprite2D" type="Sprite2D" parent="Boundary4"]
+texture_filter = 1
+position = Vector2(864, -8)
+scale = Vector2(84.76, -0.160001)
+texture = ExtResource("2_oobt7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary4"]
+position = Vector2(908, -8)
+shape = SubResource("RectangleShape2D_h70yo")
+
 [node name="Ball" type="RigidBody2D" parent="."]
 position = Vector2(664, 392)
-gravity_scale = 0.0
+physics_material_override = SubResource("PhysicsMaterial_5kiqw")
+gravity_scale = 1.66533e-16
+linear_damp_mode = 1
 script = ExtResource("4_nds60")
-speed = 800
+speed = 1000
 
 [node name="Sprite2D" type="Sprite2D" parent="Ball"]
 texture = ExtResource("4_728jy")

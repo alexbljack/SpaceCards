@@ -1,11 +1,10 @@
-class_name BattleController extends Node2D
+extends Node2D
 
 @onready var atk_btn := $"CanvasLayer/ATKButton"
 @onready var def_btn := $"CanvasLayer/DEFButton"
 @onready var ap_counter := $"CanvasLayer/APLabel"
 @onready var action_text := $"CanvasLayer/ActionTextLabel"
 @onready var end_turn_btn := $"CanvasLayer/EndTurnButton"
-@onready var defense_label := $"CanvasLayer/DefenseLabel"
 
 @onready var action_timer := $"ActionTimer"
 
@@ -15,82 +14,49 @@ class_name BattleController extends Node2D
 @export var ap := 3
 @export var max_ap := 3
 
-enum Turn {PLAYER, ENEMY}
-
-var turn: Turn;
-
-var acting = false;
 
 func _ready() -> void:
 	clear_action_text();
 	atk_btn.button_down.connect(func(): roll_dice(player.attack_dice));
-	def_btn.button_down.connect(func(): roll_dice(player.defense_dice));
+	def_btn.button_down.connect(func(): pass);
 	end_turn_btn.button_down.connect(start_enemy_turn);
 	action_timer.timeout.connect(on_action_timer);
-	player.defence_changed.connect(on_defence_change);
-	start_player_turn();
-
-
-func _process(delta):
-	atk_btn.disabled = ap < player.attack_dice.ap_cost || acting;
-	def_btn.disabled = ap < player.defense_dice.ap_cost || acting;
-	defense_label.visible = player.defence > 0;
 
 
 func start_player_turn():
-	turn = Turn.PLAYER;
-	show_ui();
-	player.reset_defence();
+	end_turn_btn.visible = true;
+	atk_btn.disabled = true;
+	def_btn.disabled = true;
 	change_ap(max_ap);
+	end_turn_btn.visible = true;
 
 
 func start_enemy_turn():
-	turn = Turn.ENEMY;
-	hide_ui();
+	end_turn_btn.visible = false;
+	atk_btn.disabled = true;
+	def_btn.disabled = true;
 	roll_dice(enemy.choose_dice());
 
 
 func roll_dice(dice: Dice):
-	var face = dice.roll();
-	if turn == Turn.PLAYER:
-		change_ap(-dice.ap_cost);
-	start_action(face);
-
-
-func start_action(action: Action):
-	acting = true;
-	set_action_text(action.on_apply);
-	action.act(player, enemy);
-	action_timer.start();
+	var face = dice.roll()
+	set_action_text(face.on_apply)
+	atk_btn.disabled = true;
+	def_btn.disabled = true;
+	change_ap(-dice.ap_cost)
 
 
 func on_action_timer():
-	acting = false;
+	atk_btn.disabled = false;
+	def_btn.disabled = false;
 	clear_action_text();
-	if turn == Turn.ENEMY:
-		start_player_turn();
-
-
-func on_defence_change(value):
-	defense_label.text = "{v}".format({"v": player.defence});
 
 
 func change_ap(amount):
 	ap += amount
 	ap = clampi(ap, 0, max_ap)
+	action_timer.start();
 	update_ap_ui();
-
-
-func show_ui():
-	end_turn_btn.visible = true;
-	atk_btn.visible = true;
-	def_btn.visible = true;
-
-
-func hide_ui():
-	end_turn_btn.visible = false;
-	atk_btn.visible = false;
-	def_btn.visible = false;
 
 
 func update_ap_ui():

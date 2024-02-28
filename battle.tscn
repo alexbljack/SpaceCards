@@ -1,14 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://ucc8jdlht5d0"]
+[gd_scene load_steps=12 format=3 uid="uid://ucc8jdlht5d0"]
 
 [ext_resource type="Script" path="res://scripts/BattleController.gd" id="1_05e5e"]
 [ext_resource type="Texture2D" uid="uid://elxg630mwthm" path="res://assets/castle bridge.png" id="1_dmlci"]
 [ext_resource type="Texture2D" uid="uid://bglg86pakc02g" path="res://assets/admech_idle.png" id="2_u3xuk"]
 [ext_resource type="Texture2D" uid="uid://qsrx2nar5rc" path="res://assets/death.png" id="3_ndipc"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="4_ptisv"]
-[ext_resource type="Resource" uid="uid://coyfvpj7dsy4n" path="res://content/dices/attack_dice.tres" id="5_m4bly"]
-[ext_resource type="Resource" uid="uid://7fogdhjxt4u3" path="res://content/dices/defence_dice.tres" id="6_dyctx"]
-[ext_resource type="PackedScene" uid="uid://bk7honyi0tql6" path="res://hp_bar.tscn" id="7_7o45j"]
-[ext_resource type="Resource" uid="uid://0v8l0cjegev8" path="res://content/dices/enemy_dice.tres" id="9_wq25n"]
+[ext_resource type="PackedScene" path="res://hp_bar.tscn" id="7_7o45j"]
 [ext_resource type="Script" path="res://Enemy.gd" id="11_irlta"]
 [ext_resource type="Texture2D" uid="uid://deva7qdfap8nc" path="res://assets/3.png" id="11_jiily"]
 
@@ -37,10 +34,6 @@ scale = Vector2(8, 8)
 texture = ExtResource("2_u3xuk")
 hframes = 2
 script = ExtResource("4_ptisv")
-attack_dice = ExtResource("5_m4bly")
-defense_dice = ExtResource("6_dyctx")
-max_hp = 13
-hp = 13
 
 [node name="HPBar" parent="Player" instance=ExtResource("7_7o45j")]
 max_value = 100.0
@@ -52,9 +45,6 @@ scale = Vector2(15, 15)
 texture = ExtResource("3_ndipc")
 hframes = 6
 script = ExtResource("11_irlta")
-action_dice = ExtResource("9_wq25n")
-max_hp = 15
-hp = 15
 
 [node name="HPBar" parent="Enemy" instance=ExtResource("7_7o45j")]
 offset_left = -10.1333
