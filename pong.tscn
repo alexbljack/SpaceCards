@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb3ycqt1dvixj"]
+[gd_scene load_steps=10 format=3 uid="uid://cb3ycqt1dvixj"]
 
 [ext_resource type="Texture2D" uid="uid://bskdi0dy45llp" path="res://assets/SpaceBackground.png" id="1_m8abi"]
 [ext_resource type="Texture2D" uid="uid://coh2yltnvq12m" path="res://assets/pong/paddle.png" id="2_oobt7"]
 [ext_resource type="Script" path="res://player_paddle.gd" id="2_u33v0"]
 [ext_resource type="Texture2D" uid="uid://chyw2q68m5be3" path="res://assets/pong/ball.png" id="4_728jy"]
+[ext_resource type="Script" path="res://ai_paddle.gd" id="4_ikiv7"]
 [ext_resource type="Script" path="res://ball.gd" id="4_nds60"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ac8ax"]
@@ -36,6 +37,27 @@ texture = ExtResource("2_oobt7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle"]
 shape = SubResource("RectangleShape2D_ac8ax")
+
+[node name="Paddle2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("ball")]
+position = Vector2(1800, 472)
+motion_mode = 1
+slide_on_ceiling = false
+platform_on_leave = 2
+script = ExtResource("4_ikiv7")
+speed = 700.0
+min_distance_to_ball = 544
+detection_threshhold = 0.1
+ball = NodePath("../Ball")
+
+[node name="Sprite2D" type="Sprite2D" parent="Paddle2"]
+scale = Vector2(1.375, 2.0625)
+texture = ExtResource("2_oobt7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle2"]
+shape = SubResource("RectangleShape2D_ac8ax")
+
+[node name="Timer" type="Timer" parent="Paddle2"]
+wait_time = 0.1
 
 [node name="Boundary" type="StaticBody2D" parent="."]
 position = Vector2(48, -8)
