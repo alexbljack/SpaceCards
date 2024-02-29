@@ -1,4 +1,4 @@
-class_name PlayerPaddle extends RigidBody2D
+class_name PlayerPaddle extends CharacterBody2D
 
 @export var speed := 200
 
