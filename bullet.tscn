@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bttahjobhxrud"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_hi02g"]
+[ext_resource type="Texture2D" uid="uid://chyw2q68m5be3" path="res://assets/pong/ball.png" id="2_a4d7j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kur72"]
+radius = 18.0
+
+[node name="Bullet" type="Area2D"]
+position = Vector2(640, 400)
+collision_mask = 2
+input_pickable = false
+script = ExtResource("1_hi02g")
+speed = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kur72")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.917647, 0, 1)
+texture = ExtResource("2_a4d7j")

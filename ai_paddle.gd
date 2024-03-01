@@ -41,4 +41,4 @@ func _on_timer_timeout() -> void:
 	var diff = to_global(Vector2.UP) - global_position
 	var direction_to_ball = global_position.direction_to(ball.global_position)
 	target_distance = diff.dot(direction_to_ball)
-	print(target_distance)
+
