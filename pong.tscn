@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://djvpoipdv6vki"]
+[gd_scene load_steps=11 format=3 uid="uid://djvpoipdv6vki"]
 
 [ext_resource type="Texture2D" uid="uid://bskdi0dy45llp" path="res://assets/SpaceBackground.png" id="1_m8abi"]
 [ext_resource type="PackedScene" uid="uid://bttahjobhxrud" path="res://bullet.tscn" id="2_5b0c3"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://chyw2q68m5be3" path="res://assets/pong/ball.png" id="4_728jy"]
 [ext_resource type="Script" path="res://ai_paddle.gd" id="4_ikiv7"]
 [ext_resource type="Script" path="res://ball.gd" id="4_nds60"]
-[ext_resource type="Script" path="res://spawner.gd" id="7_jvslp"]
-[ext_resource type="PackedScene" uid="uid://bdretm7gabt4p" path="res://pong_enemy.tscn" id="8_2owah"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gm3iq"]
 radius = 24.0
@@ -22,7 +20,7 @@ size = Vector2(2792, 16)
 [node name="Pong" type="Node2D"]
 
 [node name="Ball" type="RigidBody2D" parent="."]
-position = Vector2(912, 496)
+position = Vector2(912, 520)
 gravity_scale = 1.66533e-16
 linear_damp_mode = 1
 angular_damp_mode = 1
@@ -55,8 +53,6 @@ texture = ExtResource("2_oobt7")
 shape = SubResource("RectangleShape2D_ac8ax")
 
 [node name="Paddle2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("ball")]
-process_mode = 4
-visible = false
 position = Vector2(1800, 472)
 motion_mode = 1
 slide_on_ceiling = false
@@ -131,24 +127,38 @@ texture = ExtResource("2_oobt7")
 position = Vector2(908, -8)
 shape = SubResource("RectangleShape2D_h70yo")
 
+[node name="Boundary5" type="StaticBody2D" parent="."]
+position = Vector2(1176, 744)
+rotation = 0.845614
+scale = Vector2(0.0850395, -1.32953)
+
+[node name="Sprite2D" type="Sprite2D" parent="Boundary5"]
+texture_filter = 1
+position = Vector2(864, -8)
+scale = Vector2(84.76, -0.160001)
+texture = ExtResource("2_oobt7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary5"]
+position = Vector2(908, -8)
+shape = SubResource("RectangleShape2D_h70yo")
+
+[node name="Boundary6" type="StaticBody2D" parent="."]
+position = Vector2(760, 208)
+rotation = 2.40467
+scale = Vector2(0.0850395, -1.32953)
+
+[node name="Sprite2D" type="Sprite2D" parent="Boundary6"]
+texture_filter = 1
+position = Vector2(864, -8)
+scale = Vector2(84.76, -0.160001)
+texture = ExtResource("2_oobt7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary6"]
+position = Vector2(908, -8)
+shape = SubResource("RectangleShape2D_h70yo")
+
 [node name="Back" type="Sprite2D" parent="."]
 z_index = -10
 position = Vector2(952, 864)
 scale = Vector2(2.10938, 2.10938)
 texture = ExtResource("1_m8abi")
-
-[node name="Spawner" type="Node2D" parent="."]
-position = Vector2(2120, 192)
-script = ExtResource("7_jvslp")
-
-[node name="Timer" type="Timer" parent="Spawner"]
-autostart = true
-
-[node name="PongEnemy" parent="." instance=ExtResource("8_2owah")]
-
-[node name="PongEnemy2" parent="." instance=ExtResource("8_2owah")]
-position = Vector2(1840, 176)
-speed = 50
-
-[node name="PongEnemy3" parent="." instance=ExtResource("8_2owah")]
-position = Vector2(1800, 936)

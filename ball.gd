@@ -11,8 +11,8 @@ var velocity = Vector2.ZERO;
 
 func _ready():
 	velocity = Vector2(1, 1).normalized() * speed;
-	shoot_timer.timeout.connect(on_shoot_cooldown);
-	shoot_timer.start()
+	#shoot_timer.timeout.connect(on_shoot_cooldown);
+	#shoot_timer.start()
 
 
 func _physics_process(delta: float) -> void:
