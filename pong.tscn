@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://djvpoipdv6vki"]
+[gd_scene load_steps=15 format=3 uid="uid://djvpoipdv6vki"]
 
+[ext_resource type="Script" path="res://pong_controller.gd" id="1_8nfmr"]
 [ext_resource type="Texture2D" uid="uid://bskdi0dy45llp" path="res://assets/SpaceBackground.png" id="1_m8abi"]
 [ext_resource type="PackedScene" uid="uid://bttahjobhxrud" path="res://bullet.tscn" id="2_5b0c3"]
 [ext_resource type="Texture2D" uid="uid://coh2yltnvq12m" path="res://assets/pong/paddle.png" id="2_oobt7"]
@@ -7,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://chyw2q68m5be3" path="res://assets/pong/ball.png" id="4_728jy"]
 [ext_resource type="Script" path="res://ai_paddle.gd" id="4_ikiv7"]
 [ext_resource type="Script" path="res://ball.gd" id="4_nds60"]
+[ext_resource type="PackedScene" uid="uid://ch1gf4vuho03c" path="res://out_area.tscn" id="8_sjbr1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gm3iq"]
 radius = 24.0
@@ -17,10 +19,21 @@ size = Vector2(48, 272)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h70yo"]
 size = Vector2(2792, 16)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2wqk7"]
+bg_color = Color(0.764706, 0.0117647, 0.176471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8q34"]
+bg_color = Color(0.764706, 0.682353, 0.176471, 1)
+
 [node name="Pong" type="Node2D"]
+script = ExtResource("1_8nfmr")
+ball_speed = 1000
+ball_speed_increase = 50
+ball_damage_increase = 1
 
 [node name="Ball" type="RigidBody2D" parent="."]
-position = Vector2(912, 520)
+position = Vector2(792, 320)
+collision_layer = 5
 gravity_scale = 1.66533e-16
 linear_damp_mode = 1
 angular_damp_mode = 1
@@ -37,128 +50,126 @@ shape = SubResource("CircleShape2D_gm3iq")
 
 [node name="ShootTimer" type="Timer" parent="Ball"]
 
-[node name="Paddle" type="CharacterBody2D" parent="."]
+[node name="PlayerPaddle" type="CharacterBody2D" parent="."]
 position = Vector2(136, 808)
 motion_mode = 1
 slide_on_ceiling = false
 platform_on_leave = 2
 script = ExtResource("2_u33v0")
-speed = 650
+speed = 700
+hp = 45
+max_hp = 50
 
-[node name="Sprite2D" type="Sprite2D" parent="Paddle"]
+[node name="Sprite2D" type="Sprite2D" parent="PlayerPaddle"]
 scale = Vector2(1.375, 2.0625)
 texture = ExtResource("2_oobt7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerPaddle"]
 shape = SubResource("RectangleShape2D_ac8ax")
 
-[node name="Paddle2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("ball")]
+[node name="AIPaddle" type="CharacterBody2D" parent="." node_paths=PackedStringArray("ball")]
 position = Vector2(1800, 472)
 motion_mode = 1
 slide_on_ceiling = false
 platform_on_leave = 2
 script = ExtResource("4_ikiv7")
-speed = 700.0
-min_distance_to_ball = 544
+min_distance_to_ball = 304
 detection_threshhold = 0.1
 ball = NodePath("../Ball")
+speed = 800
+hp = 20
+max_hp = 20
 
-[node name="Sprite2D" type="Sprite2D" parent="Paddle2"]
+[node name="Sprite2D" type="Sprite2D" parent="AIPaddle"]
 scale = Vector2(1.375, 2.0625)
 texture = ExtResource("2_oobt7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AIPaddle"]
 shape = SubResource("RectangleShape2D_ac8ax")
 
-[node name="Timer" type="Timer" parent="Paddle2"]
+[node name="Timer" type="Timer" parent="AIPaddle"]
 wait_time = 0.1
 
-[node name="Boundary" type="StaticBody2D" parent="."]
-position = Vector2(48, -8)
+[node name="Level" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Boundary"]
+[node name="BoundaryTop" type="StaticBody2D" parent="Level"]
+position = Vector2(48, 120)
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/BoundaryTop"]
+visible = false
 texture_filter = 1
 position = Vector2(864, -8)
 scale = Vector2(84.76, -0.160001)
 texture = ExtResource("2_oobt7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/BoundaryTop"]
 position = Vector2(908, -8)
 shape = SubResource("RectangleShape2D_h70yo")
 
-[node name="Boundary2" type="StaticBody2D" parent="."]
+[node name="BoundaryBottom" type="StaticBody2D" parent="Level"]
 position = Vector2(0, 1104)
 
-[node name="Sprite2D" type="Sprite2D" parent="Boundary2"]
+[node name="Sprite2D" type="Sprite2D" parent="Level/BoundaryBottom"]
 texture_filter = 1
 position = Vector2(864, -8)
 scale = Vector2(84.76, -0.160001)
 texture = ExtResource("2_oobt7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/BoundaryBottom"]
 position = Vector2(908, -8)
 shape = SubResource("RectangleShape2D_h70yo")
 
-[node name="Boundary3" type="StaticBody2D" parent="."]
-position = Vector2(1928, 112)
-rotation = 1.5708
-
-[node name="Sprite2D" type="Sprite2D" parent="Boundary3"]
-texture_filter = 1
-position = Vector2(864, -8)
-scale = Vector2(84.76, -0.160001)
-texture = ExtResource("2_oobt7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary3"]
-position = Vector2(908, -8)
-shape = SubResource("RectangleShape2D_h70yo")
-
-[node name="Boundary4" type="StaticBody2D" parent="."]
-position = Vector2(-24, 152)
-rotation = 1.5708
-
-[node name="Sprite2D" type="Sprite2D" parent="Boundary4"]
-texture_filter = 1
-position = Vector2(864, -8)
-scale = Vector2(84.76, -0.160001)
-texture = ExtResource("2_oobt7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary4"]
-position = Vector2(908, -8)
-shape = SubResource("RectangleShape2D_h70yo")
-
-[node name="Boundary5" type="StaticBody2D" parent="."]
-position = Vector2(1176, 744)
-rotation = 0.845614
-scale = Vector2(0.0850395, -1.32953)
-
-[node name="Sprite2D" type="Sprite2D" parent="Boundary5"]
-texture_filter = 1
-position = Vector2(864, -8)
-scale = Vector2(84.76, -0.160001)
-texture = ExtResource("2_oobt7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary5"]
-position = Vector2(908, -8)
-shape = SubResource("RectangleShape2D_h70yo")
-
-[node name="Boundary6" type="StaticBody2D" parent="."]
-position = Vector2(760, 208)
-rotation = 2.40467
-scale = Vector2(0.0850395, -1.32953)
-
-[node name="Sprite2D" type="Sprite2D" parent="Boundary6"]
-texture_filter = 1
-position = Vector2(864, -8)
-scale = Vector2(84.76, -0.160001)
-texture = ExtResource("2_oobt7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary6"]
-position = Vector2(908, -8)
-shape = SubResource("RectangleShape2D_h70yo")
-
-[node name="Back" type="Sprite2D" parent="."]
+[node name="Back" type="Sprite2D" parent="Level"]
 z_index = -10
 position = Vector2(952, 864)
 scale = Vector2(2.10938, 2.10938)
 texture = ExtResource("1_m8abi")
+
+[node name="OutAreaPlayer" parent="." node_paths=PackedStringArray("paddle") instance=ExtResource("8_sjbr1")]
+paddle = NodePath("../PlayerPaddle")
+
+[node name="OutAreaAI" parent="." node_paths=PackedStringArray("paddle") instance=ExtResource("8_sjbr1")]
+position = Vector2(1984, -8)
+paddle = NodePath("../AIPaddle")
+
+[node name="BallPosition" type="Marker2D" parent="."]
+position = Vector2(960, 576)
+gizmo_extents = 128.9
+
+[node name="BallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1936.0
+offset_bottom = 120.0
+color = Color(0.313726, 0.313726, 0.505882, 1)
+
+[node name="HPBarPlayer" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 72.0
+offset_top = 40.0
+offset_right = 648.0
+offset_bottom = 88.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_2wqk7")
+value = 75.0
+show_percentage = false
+
+[node name="HPBarAI" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 1296.0
+offset_top = 40.0
+offset_right = 1872.0
+offset_bottom = 88.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_o8q34")
+value = 75.0
+show_percentage = false
+
+[node name="BallStats" type="Label" parent="CanvasLayer"]
+offset_left = 704.0
+offset_right = 1216.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 32
+text = "DMG: 10
+SPD: 5"
+horizontal_alignment = 1
+vertical_alignment = 1

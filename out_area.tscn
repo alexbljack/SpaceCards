@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch1gf4vuho03c"]
+
+[ext_resource type="Script" path="res://out_area.gd" id="1_26uhf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coyqa"]
+size = Vector2(88, 1184)
+
+[node name="OutArea" type="Area2D"]
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_26uhf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12, 544)
+shape = SubResource("RectangleShape2D_coyqa")

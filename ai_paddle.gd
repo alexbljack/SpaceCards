@@ -1,7 +1,4 @@
-class_name AIPaddle extends CharacterBody2D
-
-@export_range(0, 1000, 10, 'suffix:px/s')
-var speed: float
+class_name AIPaddle extends Paddle
 
 @export_range(0, 640, 8, 'suffix:px')
 var min_distance_to_ball: int
